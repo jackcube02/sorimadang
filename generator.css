@@ -1,0 +1,117 @@
+/* 생성기의 클래스는 역할을 바로 알 수 있도록 이름을 붙였다. */
+#sound-generator { color: #ebebeb; font-size: 15px; line-height: 1.55; word-spacing: normal; white-space: normal; }
+#sound-generator * { box-sizing: border-box; }
+#sound-generator [hidden] { display: none !important; }
+#sound-generator h2 { margin: 0; font-size: 19px; font-weight: 400; }
+#sound-generator p { font-size: inherit; line-height: inherit; }
+#sound-generator button, #sound-generator input, #sound-generator select { font: inherit; color: inherit; border: 1px solid #6b6b6b; border-radius: 0; background: #000; }
+#sound-generator button { padding: 6px 10px; cursor: pointer; white-space: nowrap; }
+#sound-generator button:hover:not(:disabled), #sound-generator button[aria-pressed="true"] { background: #ebebeb; color: #000; border-color: #ebebeb; }
+#sound-generator button:disabled { opacity: .35; cursor: default; }
+#sound-generator button:focus-visible, #sound-generator input:focus-visible, #sound-generator select:focus-visible, #sound-generator [tabindex]:focus-visible { outline: 1px solid #fff; outline-offset: 3px; }
+#sound-generator input:not([type="range"]):not([type="checkbox"]), #sound-generator select { min-width: 0; padding: 5px 7px; }
+#sound-generator input[type="range"] { accent-color: #ebebeb; cursor: pointer; min-width: 0; }
+#sound-generator input[type="checkbox"] { accent-color: #fff; }
+#sound-generator label { display: flex; gap: 5px; flex-direction: column; font-size: 13px; }
+.generator-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+#sound-count { color: #aaa; font-size: 14px; }
+#library-preview-name { color: #bcbcbc; font-size: 12px; max-width: 100%; overflow-wrap: anywhere; }
+.sound-library { margin-bottom: 30px; }
+.library-filters { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.library-filters #sound-search { flex: 1; min-width: 160px; }
+.library-filters label { min-width: 95px; }
+.sound-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(178px, 1fr)); gap: 6px; max-height: 375px; min-height: 85px; padding: 1px 3px 8px 1px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #777 #111; }
+.sound-card { border: 1px solid #444; display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 9px; min-width: 0; cursor: grab; user-select: none; touch-action: pan-y; }
+.sound-drag-handle { font-family: sans-serif; font-size: 22px; flex: 0 0 14px; touch-action: none; cursor: grab; color: #999; padding: 12px 0; }
+.sound-drag-ghost { position: fixed; z-index: 1000; width: 188px; padding: 9px; background: #fff; color: #000; border: 1px solid #000; font-size: 13px; line-height: 1.4; pointer-events: none; overflow-wrap: anywhere; }
+.sound-card:active { cursor: grabbing; }
+.sound-card.is-previewing { border-color: #fff; background: #1c1c1c; }
+.sound-card-info { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
+.sound-person-name { color: #ddd; font-size: 12px; }
+.sound-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; }
+.sound-duration { color: #999; font-size: 12px; }
+.sound-card-buttons { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+#sound-generator .sound-card-buttons button { padding: 2px 7px; min-height: 25px; min-width: 30px; line-height: 1.1; }
+.empty-library { padding: 20px 0; color: #aaa; }
+.sound-editor { border-top: 1px solid #777; padding-top: 20px; }
+.editor-controls, .editor-options { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+#timeline-time { margin-right: auto; min-width: 105px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#sound-generator .editor-options label { flex-direction: row; align-items: center; }
+.zoom-option { margin-left: auto; }
+.zoom-option input { width: 84px; }
+.timeline-scroll { border: 1px solid #666; overflow-x: auto; overflow-y: hidden; width: 100%; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #888 #151515; }
+.timeline { min-width: 100%; position: relative; padding-bottom: 1px; background: #090909; }
+.timeline-ruler { height: 27px; position: relative; border-bottom: 1px solid #666; cursor: crosshair; user-select: none; overflow: hidden; }
+.time-mark { position: absolute; top: 0; padding: 2px 0 0 4px; border-left: 1px solid #666; height: 100%; font-size: 11px; color: #bbb; white-space: nowrap; pointer-events: none; }
+.timeline-track { position: relative; height: 104px; border-bottom: 1px solid #444; background-image: linear-gradient(90deg, #242424 1px, transparent 1px); background-size: 60px 100%; }
+.timeline-track:last-child { border-bottom: 0; }
+.timeline-track.is-drop-target { background-color: #333; }
+.track-name { position: sticky; left: 8px; top: 0; display: inline-block; color: #737373; font-size: 10px; line-height: 17px; user-select: none; pointer-events: none; }
+.sound-clip { position: absolute; top: 17px; height: 82px; min-width: 3px; border: 1px solid #aaa; background: var(--clip-color, #242424); color: #fff; overflow: hidden; cursor: grab; touch-action: none; user-select: none; }
+.sound-clip.is-selected { border: 1px solid #fff; background: var(--clip-color, #4a4a4a); z-index: 2; box-shadow: inset 0 0 0 1px #fff; }
+.sound-clip:active { cursor: grabbing; }
+.clip-wave { display: block; width: 100%; height: 100%; position: absolute; inset: 0; pointer-events: none; }
+.clip-name { position: absolute; top: 4px; left: 10px; right: 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 11px; text-shadow: 0 1px 3px #000; pointer-events: none; }
+.clip-duration { position: absolute; bottom: 4px; left: 10px; font-size: 10px; text-shadow: 0 1px 3px #000; pointer-events: none; }
+.clip-handle { position: absolute; top: 0; bottom: 0; width: 8px; background: #ffffff18; cursor: ew-resize; touch-action: none; }
+.clip-handle:hover { background: #ffffff66; }
+.clip-handle-left { left: 0; border-right: 1px solid #ffffff44; }
+.clip-handle-right { right: 0; border-left: 1px solid #ffffff44; }
+.timeline-cursor { position: absolute; top: 0; bottom: 0; width: 1px; background: #fff; pointer-events: none; z-index: 5; box-shadow: 1px 0 0 #000; }
+.timeline-cursor::before { content: ''; position: absolute; top: 0; left: -4px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 7px solid #fff; }
+#sound-generator .playhead-control { margin: 12px 0 4px; flex-direction: row; align-items: center; gap: 10px; }
+.playhead-control input { flex: 1; }
+.playhead-control output { font-variant-numeric: tabular-nums; min-width: 50px; }
+.export-controls { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+#sound-generator #export-wav { border-color: #ebebeb; }
+#sound-generator #download-wav { color: inherit; font-size: 13px; text-decoration-thickness: 1px; text-underline-offset: 4px; padding: 6px 0; }
+#sound-generator #export-progress { width: 100%; height: 5px; accent-color: #ebebeb; margin-top: 16px; }
+#sound-generator .generator-status { margin: 14px 0 8px; font-size: 13px; min-height: 21px; }
+#sound-generator .generator-status.is-error { color: #fff; border-left: 2px solid #fff; padding-left: 8px; }
+.is-exporting .timeline { pointer-events: none; opacity: .55; }
+@media (max-width: 1000px) {
+    .editor-controls { gap: 6px; }
+    .zoom-option { margin-left: 0; }
+}
+@media (max-width: 650px) {
+    #sound-generator { font-size: 13px; }
+    .sound-list { grid-template-columns: 1fr; max-height: 320px; }
+    .sound-card-buttons { flex-direction: row; }
+    .generator-heading { gap: 3px; }
+    #sound-generator button { padding: 5px 7px; }
+    .library-filters #sound-search { min-width: 110px; }
+}
+
+/* 빈 트랙 드래그로 좌우 이동. 클립 드래그와는 구분한다. */
+.timeline-track { cursor: grab; touch-action: pan-y; }
+.timeline-scroll.is-panning, .timeline-scroll.is-panning * { cursor: grabbing; }
+/* 소개글 설명 상자와 같은 흰색 직사각형 메뉴 */
+#clip-color-menu {
+    position: fixed;
+    z-index: 200;
+    width: 160px;
+    max-height: calc(100dvh - 16px);
+    overflow-y: auto;
+    padding: 8px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.color-menu-title { display: block; padding: 3px 6px 7px; }
+#sound-generator #clip-color-menu button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    padding: 5px 6px;
+    border: 0;
+    background: #fff;
+    color: #000;
+    text-align: left;
+}
+#sound-generator #clip-color-menu button:hover,
+#sound-generator #clip-color-menu button:focus-visible,
+#sound-generator #clip-color-menu button[aria-checked="true"] { background: #e5e5e5; outline: none; }
+.color-swatch { width: 15px; height: 15px; border: 1px solid #000; flex: 0 0 auto; }

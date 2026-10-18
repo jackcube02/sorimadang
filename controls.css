@@ -1,0 +1,140 @@
+/* 슬라이더 디자인: 이 위쪽 값만 바꾸면 모든 슬라이더에 적용된다. */
+:root {
+    --slider-line-height: 10px;        /* 막대 두께 */
+    --slider-line-color: #1a1a1a;    /* 막대 색상 */
+    --slider-line-radius: 0px;       /* 막대 모서리 둥글기 */
+    --slider-thumb-width: 10px;      /* 손잡이 너비 */
+    --slider-thumb-height: 10px;     /* 손잡이 높이 */
+    --slider-thumb-color: #ebebeb;   /* 손잡이 색상 */
+    --slider-thumb-radius: 0%;      /* 50% = 원형, 0px = 사각형 */
+}
+
+/* 재생 위치·음량·타임라인 확대 슬라이더에 공통 적용한다. */
+#sound-player input[type="range"],
+#sound-generator input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    height: max(24px, var(--slider-thumb-height));
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Safari, Chrome, Edge: 막대 */
+#sound-player input[type="range"]::-webkit-slider-runnable-track,
+#sound-generator input[type="range"]::-webkit-slider-runnable-track {
+    box-sizing: border-box;
+    height: var(--slider-line-height);
+    border: 0;
+    border-radius: var(--slider-line-radius);
+    background: var(--slider-line-color);
+}
+
+/* Safari, Chrome, Edge: 손잡이 */
+#sound-player input[type="range"]::-webkit-slider-thumb,
+#sound-generator input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    width: var(--slider-thumb-width);
+    height: var(--slider-thumb-height);
+    margin-top: calc((var(--slider-line-height) - var(--slider-thumb-height)) / 2);
+    border: var(--slider-thumb-border, none);
+    border-radius: var(--slider-thumb-radius);
+    background: var(--slider-thumb-color);
+    box-shadow: none;
+}
+
+/* Firefox: 막대 */
+#sound-player input[type="range"]::-moz-range-track,
+#sound-generator input[type="range"]::-moz-range-track {
+    box-sizing: border-box;
+    height: var(--slider-line-height);
+    border: 0;
+    border-radius: var(--slider-line-radius);
+    background: var(--slider-line-color);
+}
+
+#sound-player input[type="range"]::-moz-range-progress,
+#sound-generator input[type="range"]::-moz-range-progress {
+    height: var(--slider-line-height);
+    border: 0;
+    border-radius: var(--slider-line-radius);
+    background: var(--slider-line-color);
+}
+
+/* Firefox: 손잡이 */
+#sound-player input[type="range"]::-moz-range-thumb,
+#sound-generator input[type="range"]::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--slider-thumb-width);
+    height: var(--slider-thumb-height);
+    border: var(--slider-thumb-border, none);
+    border-radius: var(--slider-thumb-radius);
+    background: var(--slider-thumb-color);
+    box-shadow: none;
+}
+
+#sound-player input[type="range"]:disabled,
+#sound-generator input[type="range"]:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* 개별 슬라이더만 바꾸려면 아래 예시처럼 값을 추가한다.
+#player-volume {
+    --slider-thumb-width: 8px;
+    --slider-thumb-height: 20px;
+    --slider-thumb-radius: 0px;
+}
+
+사용할 수 있는 아이디:
+#player-volume = 왼쪽 플레이어 음량
+#timeline-seek = 생성기 재생 위치
+#timeline-zoom = 생성기 확대
+*/
+
+/* 음량은 현재 값까지 채운다. 색상과 두께는 여기에서 바꾼다. */
+#sound-player input[type="range"] { height: max(18px, var(--slider-thumb-height)); }
+#player-volume {
+    --volume-fill: 80%;
+    --volume-fill-color: #ffffff;
+    --slider-line-height: 8px;
+    --slider-thumb-height: 8px;
+    --slider-thumb-width: 8px;
+}
+#sound-player #player-volume::-webkit-slider-runnable-track {
+    background: linear-gradient(to top, var(--volume-fill-color) 0%, var(--volume-fill-color) var(--volume-fill), var(--slider-line-color) var(--volume-fill), var(--slider-line-color) 100%);
+}
+#sound-player #player-volume::-moz-range-progress { background: var(--volume-fill-color); }
+
+/* 세로 음량. 입력 방향도 위쪽이 큰 값이 되도록 맞춘다. */
+#sound-player #player-volume {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 22px;
+    height: 94px;
+    min-height: 0;
+    margin: 0;
+}
+#sound-player #player-volume::-webkit-slider-runnable-track {
+    width: var(--slider-line-height);
+    height: 100%;
+}
+#sound-player #player-volume::-webkit-slider-thumb {
+    margin-top: 0;
+    margin-left: calc((var(--slider-line-height) - var(--slider-thumb-width)) / 2);
+}
+#sound-player #player-volume::-moz-range-track {
+    width: var(--slider-line-height);
+    height: 100%;
+    background: linear-gradient(to top, var(--volume-fill-color) 0%, var(--volume-fill-color) var(--volume-fill), var(--slider-line-color) var(--volume-fill), var(--slider-line-color) 100%);
+}
+#sound-player #player-volume::-moz-range-progress {
+    width: var(--slider-line-height);
+    height: auto;
+    background: transparent;
+}

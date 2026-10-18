@@ -1,0 +1,276 @@
+:root {
+    /* 글자의 세로 위치: 양수는 아래로, 음수는 위로, 0은 원래 위치 */
+    --english-offset: 0.04em;
+    --number-offset: 0.04em;
+    --period-offset: 0.10em; /* 마침표 */
+    --comma-offset: 0.10em;  /* 쉼표 */
+}
+
+/* 글자 위치만 조정하므로 기존 줄 간격은 유지된다. */
+.english-text {
+    position: relative;
+    top: var(--english-offset);
+}
+
+.number-text {
+    position: relative;
+    top: var(--number-offset);
+}
+
+.period-text {
+    position: relative;
+    top: var(--period-offset);
+}
+
+.comma-text {
+    position: relative;
+    top: var(--comma-offset);
+}
+
+@font-face {
+    font-family: 'JungGothic';
+    src: url('./data/font/Sanjak_Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+html, body{
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000000;
+    /* 영문·숫자·기호는 Adobe Jenson, 한글은 기존 로컬 서체를 사용한다. */
+    font-family: 'adobe-jenson-pro-display', 'JungGothic', sans-serif;
+}
+
+p{
+    margin: 0;
+    color: #ebebeb;
+    font-size: 16px;
+}
+
+#content-text{
+    grid-column: 1;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    padding-right: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    font-size: 1.5rem;
+    color: #ebebeb;
+    width: 100%;
+    height: 100%;
+    display: block;
+    word-break: break-all;
+    line-height: 38px;
+    word-spacing: 5px;
+    /* HTML의 줄바꿈과 빈 줄은 유지하고, 코드 들여쓰기 공백은 무시한다. */
+    white-space: pre-line;
+}
+
+#main{
+    display: flex;
+    height: calc(100vh - 16px);
+    height: calc(100dvh - 16px);
+    min-height: 0;
+    margin: 8px;
+}
+
+#container{
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+}
+
+#content{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
+}
+
+#content-text a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 1px;
+}
+
+#times-tooltip,
+#sori-tooltip,
+#sound-tooltip {
+    position: fixed;
+    z-index: 100;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: calc(100vw - 24px);
+    padding: 8px;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    pointer-events: none;
+    white-space: pre-line;
+}
+
+
+/* 오른쪽 영역은 그리드 두 칸을 차지하며 독립적으로 스크롤된다. */
+#content-main {
+    grid-column: 2 / span 2;
+    min-width: 0;
+    min-height: 0;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-left: 1px solid #ebebeb;
+    color: #ebebeb;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+}
+
+/* 스크롤은 유지하고 스크롤바만 숨긴다. */
+#content-text,
+#content-main {
+    scrollbar-width: none;
+}
+
+#content-text::-webkit-scrollbar,
+#content-main::-webkit-scrollbar {
+    display: none;
+}
+
+/* 두 nav는 같은 가로줄에 두고, 전체 줄을 상단에 고정한다. */
+#content-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background-color: #000000;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    line-height: 1.6;
+}
+
+#main-nav,
+#generator-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    white-space: nowrap;
+}
+
+#generator-nav {
+    margin-left: auto;
+}
+
+#content-nav a {
+    color: inherit;
+    text-decoration: none;
+    text-underline-offset: 7px;
+    text-decoration-thickness: 1px;
+}
+
+#content-nav a[aria-current="page"],
+#content-nav a:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+}
+
+#content-nav a:focus-visible,
+#content-main:focus-visible {
+    outline: 1px solid #ebebeb;
+    outline-offset: -2px;
+}
+
+.content-page {
+    padding: 24px;
+    overflow-wrap: anywhere;
+}
+
+.content-page h1 {
+    margin: 0 0 24px;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+@media (max-width: 600px) {
+    #content-text {
+        padding-right: 12px;
+    }
+
+    #content-nav {
+        gap: 8px;
+        padding: 12px 0;
+        font-size: clamp(11px, 2.8vw, 16px);
+    }
+
+    #main-nav {
+        gap: 8px;
+    }
+
+    .content-page {
+        padding: 12px;
+    }
+}
+
+
+/* 소개문은 위에서 스크롤하고 플레이어는 왼쪽 맨 아래에 유지한다. */
+#content-text {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    white-space: normal;
+}
+
+#project-intro {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: none;
+    white-space: pre-line;
+    padding-bottom: 24px;
+}
+
+#project-intro::-webkit-scrollbar {
+    display: none;
+}
+
+#sound-player {
+    flex: 0 0 auto;
+}
+
+.page-description {
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+/* 참여자 주소가 정해지면 각 a 태그에 href를 추가한다. */
+#participants-page a {
+    display: block;
+    width: fit-content;
+    margin-bottom: 14px;
+    color: inherit;
+    font-size: 24px;
+    line-height: 1.5;
+    text-decoration: none;
+}
+#participants-page a[href] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+}

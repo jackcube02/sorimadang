@@ -1,0 +1,201 @@
+/* 소개글 맨 아래에 표시되는 소리마당 플레이어 */
+#sound-player {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 22px;
+    column-gap: 10px;
+    margin-top: 0;
+    padding: 8px 0 2px;
+    border-top: 1px solid #ebebeb;
+    color: #ebebeb;
+    font-size: 16px;
+    line-height: 1.5;
+    word-spacing: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+#sound-player *,
+#playlist-list * {
+    box-sizing: border-box;
+}
+
+.player-heading,
+.player-time,
+.player-buttons,
+.player-volume {
+    display: flex;
+    align-items: center;
+}
+
+.player-heading,
+.player-time {
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.player-heading {
+    grid-column: 1 / -1;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+#player-title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: normal;
+}
+
+#player-count {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.player-wave-area {
+    grid-column: 1;
+    width: 100%;
+    height: 44px;
+}
+
+#player-wave {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    touch-action: none;
+}
+
+#sound-player input[type="range"] {
+    display: block;
+    min-width: 0;
+    height: 18px;
+    padding: 0;
+    margin: 2px 0;
+    accent-color: #ebebeb;
+    cursor: pointer;
+}
+
+.player-time {
+    grid-column: 1;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+}
+
+.player-buttons {
+    grid-column: 1;
+    display: flex;
+    justify-content: flex-start;
+    gap: 4px;
+    margin-top: 5px;
+}
+
+#sound-player button,
+.playlist-track {
+    appearance: none;
+    border: 1px solid #ebebeb;
+    border-radius: 0;
+    background: #000;
+    color: #ebebeb;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.5;
+    word-spacing: normal;
+    cursor: pointer;
+}
+
+#sound-player button {
+    min-height: 24px;
+    padding: 2px 7px;
+    white-space: nowrap;
+}
+
+#sound-player button:hover,
+#sound-player button:focus-visible {
+    background: #ebebeb;
+    color: #000;
+}
+
+#sound-player button:focus-visible,
+#sound-player input:focus-visible,
+#player-wave:focus-visible,
+.playlist-track:focus-visible {
+    outline: 1px solid #fff;
+    outline-offset: 3px;
+}
+
+/* 오른쪽 세로 음량: 아래가 0, 위가 100이다. */
+.player-volume {
+    grid-column: 2;
+    grid-row: 2 / 5;
+    justify-content: center;
+    align-self: stretch;
+    min-height: 78px;
+}
+
+#player-message {
+    grid-column: 1 / -1;
+    min-height: 0;
+    margin: 5px 0 0;
+    color: #bdbdbd;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* 재생목록 탭의 다섯 트랙. 제목을 누르면 왼쪽 플레이어에서 재생된다. */
+#playlist-list {
+    display: grid;
+    border-top: 1px solid #ebebeb;
+}
+
+.playlist-track {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 86px;
+    padding: 16px 6px;
+    border: 0;
+    border-bottom: 1px solid #ebebeb;
+    text-align: left;
+}
+
+.playlist-track:hover,
+.playlist-track.is-current {
+    background: #171717;
+}
+
+.playlist-name {
+    font-size: 22px;
+    overflow-wrap: anywhere;
+}
+
+.playlist-number,
+.playlist-state,
+.playlist-duration {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.playlist-state {
+    color: #bdbdbd;
+}
+
+@media (max-width: 700px) {
+    .playlist-track {
+        grid-template-columns: 26px minmax(0, 1fr) auto;
+        gap: 10px;
+    }
+
+    .playlist-state {
+        display: none;
+    }
+
+    .playlist-name {
+        font-size: 19px;
+    }
+}
+
+#player-message:empty { display: none; }
+#sound-player button { font-size: 12px; }
