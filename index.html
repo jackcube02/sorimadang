@@ -2,8 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sori madang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>sorimadang | home</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="player.css">
     <link rel="stylesheet" href="generator.css">
@@ -15,15 +15,16 @@
 </head>
 <body>
     <div id="title-screen" class="is-visible" tabindex="-1" aria-hidden="true">
-        <span id="title-screen-text">소리마당</span>
+        <video id="screen-video" data-idle-video="data/video/%EC%86%8C%EB%A6%AC%EB%A7%88%EB%8B%B9_%EC%9D%B8%ED%8A%B8%EB%A1%9C%EB%AA%A8%EC%85%98_%EC%83%98%ED%94%8C2.mp4" src="data/video/%EC%86%8C%EB%A6%AC%EB%A7%88%EB%8B%B9_%EC%9D%B8%ED%8A%B8%EB%A1%9C%EB%AA%A8%EC%85%98_%EC%83%98%ED%94%8C1.mp4" muted playsinline preload="auto" aria-label="소리마당 인트로 영상"></video>
+        <div class="screen-buttons"><button id="screen-play" type="button" hidden>영상 재생</button><button id="screen-skip" type="button" hidden>사이트로 이동</button></div>
     </div>
     <div id="main">  
         <div id="container">
         <div id="content">
             <div id="content-text">
-                <div id="project-intro">30일간 5명이 <a id="times-link" href="https://m0y2e0ng.github.io/times/" aria-describedby="times-tooltip">times 웹사이트</a>에서 무작위로 배정해주는 시간대에 아이폰의 음성 녹음 앱을 활용해 1분간 녹음하며 소리를 채집했다. 채집한 소리의 원본은 <a id="sound-link" href="https://jackcube02.github.io/30Days-Sound/" aria-describedby="sound-tooltip">30DaySound</a>에서 청취할 수 있다.
+                <div id="project-intro">30일간 5명이 <a id="times-link" href="https://m0y2e0ng.github.io/times/" aria-describedby="times-tooltip" target="_blank" rel="noopener noreferrer">times 웹사이트</a>에서 무작위로 배정해주는 시간대에 아이폰의 음성 녹음 앱을 활용해 1분간 녹음하며 소리를 채집했다. 채집한 소리의 원본은 <a id="sound-link" href="https://jackcube02.github.io/30Days-Sound/" aria-describedby="sound-tooltip" target="_blank" rel="noopener noreferrer">30DaySound</a>에서 청취할 수 있다.
 
-                그다음 우리는 일종의 오디오 콜라주인 ‘<a id="sori-link" href="index.html" aria-describedby="sori-tooltip">소리마당</a>’을 진행했다. 소리마당은 개인이 채집한 30개의 녹음 파일을 가지고 어도비 오디션, 로직과 같은 오디오 편집 프로그램을 이용해 원본의 소리를 자르고 재배치하거나, 음량과 음색을 조정하고, 레이어링과 믹싱을 통해 여러 소리를 결합해 새로운 소리를 만들거나 유기적인 맥락을 갖도록 시도해본 작업이다.
+                그다음 우리는 일종의 오디오 콜라주인 ‘<a id="sori-link" href="index.html" aria-describedby="sori-tooltip" target="_blank" rel="noopener noreferrer">소리마당</a>’을 진행했다. 소리마당은 개인이 채집한 30개의 녹음 파일을 가지고 어도비 오디션, 로직과 같은 오디오 편집 프로그램을 이용해 원본의 소리를 자르고 재배치하거나, 음량과 음색을 조정하고, 레이어링과 믹싱을 통해 여러 소리를 결합해 새로운 소리를 만들거나 유기적인 맥락을 갖도록 시도해본 작업이다.
 
                 이 웹페이지에서는 우리가 작업한 소리마당 플레이리스트를 청취할 수 있다. 또한 사용자도 우리가 30일간 채집한 소리들을 직접 짜깁기해 자신만의 소리마당을 펼쳐볼 수 있다.</div>
                 <section id="sound-player" aria-label="소리마당 플레이어"></section>
@@ -49,30 +50,52 @@
                     <h1 id="cd-title">CD</h1>
                     <!-- CD 페이지 내용은 여기에 추가한다. -->
                 </section>
-                <section id="generator-page" class="content-page" aria-labelledby="generator-title" hidden>
-                    <h1 id="generator-title">소리마당 생성기</h1>
-                    <div id="sound-generator"></div>
-                </section>
                 <section id="participants-page" class="content-page" aria-label="참여자" hidden>
-                    <a href="https://spreadseoul.com/">권호준</a>
-                    <a href="https://www.instagram.com/maynoook/">박민욱</a>
-                    <a href="https://www.instagram.com/hyokwii/">박찬혁</a>
-                    <a href="https://m0y2e0ng.github.io/songmyeongseon/">송명선</a>
-                    <a href="">한주희</a>
+                    <a href="https://spreadseoul.com/" target="_blank" rel="noopener noreferrer" id="hojun-link" aria-describedby="hojun-tooltip">권호준</a>
+                    <a href="https://www.instagram.com/maynoook/" target="_blank" rel="noopener noreferrer" id="minuk-link" aria-describedby="minuk-tooltip">박민욱</a>
+                    <a href="https://www.instagram.com/hyokwii/" target="_blank" rel="noopener noreferrer" id="chanhyeok-link" aria-describedby="chanhyeok-tooltip">박찬혁</a>
+                    <a href="https://m0y2e0ng.github.io/songmyeongseon/" target="_blank" rel="noopener noreferrer" id="myeongseon-link" aria-describedby="myeongseon-tooltip">송명선</a>
+                    <a href="https://www.instagram.com/j_uheeeeeeee/" target="_blank" rel="noopener noreferrer" id="juhee-link" aria-describedby="juhee-tooltip">한주희</a>
                     <!-- 참여자 콘텐츠 -->
                 </section>
             </main>
         </div>
         </div>
+        <section id="generator-page" role="dialog" aria-modal="true" aria-labelledby="generator-title" hidden inert>
+            <h1 id="generator-title" class="visually-hidden">소리마당</h1>
+            <div id="mobile-generator-notice" hidden>
+                <button id="mobile-generator-back" type="button">뒤로가기</button>
+                <p>PC 환경에서만<br>가능합니다</p>
+            </div>
+            <div id="sound-generator"></div>
+        </section>
     </div>
     <div id="times-tooltip" role="tooltip" hidden>times 웹사이트는 09:00부터 00:00사이 무작위로 녹음할 시간을 배정해주는 앱으로 명선이 제작했다.</div>
     <div id="sori-tooltip" role="tooltip" hidden>이번 프로젝트의 제목이기도 하다.
 
         쓰임에 따라 다양한 모습으로 탈바꿈하는 마당처럼, 이번 작업에서는 무작위로 배정된 시간에 녹음한 예측하지 못한 소리들을 자유롭게 짜깁기하며 소리의 새로운 가능성을 탐구해본다.</div>
     <div id="sound-tooltip" role="tooltip" hidden>5명이 30일동안 각자 채집한 소리들을 모두 들어볼 수 있는 웹사이트로 호준이 제작했다.</div>
+    <div id="hojun-tooltip" class="participant-tooltip" role="tooltip" hidden>spreadseoul</div>
+    <div id="minuk-tooltip" class="participant-tooltip" role="tooltip" hidden>박민욱의 인스타그램</div>
+    <div id="chanhyeok-tooltip" class="participant-tooltip" role="tooltip" hidden>박찬혁의 인스타그램</div>
+    <div id="myeongseon-tooltip" class="participant-tooltip" role="tooltip" hidden>송명선의 웹사이트</div>
+    <div id="juhee-tooltip" class="participant-tooltip" role="tooltip" hidden>한주희의 인스타그램</div>
+    <!-- 재생목록 작품 소개: 원고와 문단은 아래에서 수정한다. -->
+    <div id="playlist-hojun-tooltip" class="playlist-tooltip" role="tooltip" hidden>30일 동안 수집한 소리들은 어떻게 서로 유기적으로 연결되어 새로운 소리가 될 수 있을까?
+
+30일 동안 매일 무작위의 시간과 장소에서 아이폰을 이용해 약 1분간 소리를 녹음했다. 이렇게 수집된 소리들은 각기 다른 공간과 시간, 맥락과 상황 속에서 발생한 것으로, 저마다 고유한 특징과 질감을 지니고 있다. 본 작업에서는 녹음된 소리들에서 특정한 소리를 추출하고, 이를 분해하거나 새로운 질감을 부여해 재조합하는 과정을 거쳤다. 이 과정에서 소리들이 가진 고유한 특징을 활용해 새로운 리듬을 만들어보고자 했다. 본래의 맥락에서 벗어난 소리들이 서로 연결되고 반복되며 하나의 리듬을 형성하는 과정을 통해, 일상에서 무심코 지나쳤던 소리들의 새로운 가능성을 탐구한다.</div>
+    <div id="playlist-minuk-tooltip" class="playlist-tooltip" role="tooltip" hidden>30일 동안 수집한 소리들을 되돌아보니, 그 안에는 내가 자주 방문하는 장소와 반복되는 일상의 모습이 담겨 있었다. 무작위로 기록했다고 생각했던 소리들이 결국 나의 익숙한 하루를 보여주고 있다는 점에서 출발했다. 서로 다른 날에 녹음된 소리들을 아침에 일어나는 순간부터 작업과 이동, 학교에서의 만남, 식사와 귀가, 잠에 들기까지의 흐름에 따라 재배치했다. 실제로는 각기 다른 시간과 공간에서 발생한 소리들이지만, 이를 하나의 시간 안에 연결해 나만의 하루를 구성하고자 했다. 흩어져 있던 30일의 기록을 하나의 하루로 재구성하는 과정을 통해 반복되는 일상의 리듬과 익숙한 공간의 흔적을 표현했다.</div>
+    <div id="playlist-chanhyeok-tooltip" class="playlist-tooltip" role="tooltip" hidden>30일 동안 수집한 소리들은 어떻게 서로 유기적으로 연결되어 새로운 소리가 될 수 있을까? 30일 동안 매일 무작위의 시간과 장소에서 아이폰을 이용해 약 1분간 소리를 녹음했다. 이렇게 수집된 소리들은 각기 다른 공간과 시간, 맥락과 상황 속에서 발생한 것으로, 저마다 고유한 특징과 질감을 지니고 있다. 본 작업에서는 녹음된 소리들에서 특정한 소리를 추출하고, 이를 분해하거나 새로운 질감을 부여해 재조합하는 과정을 거쳤다. 이 과정에서 소리들이 가진 고유한 특징을 활용해 새로운 리듬을 만들어보고자 했다. 본래의 맥락에서 벗어난 소리들이 서로 연결되고 반복되며 하나의 리듬을 형성하는 과정을 통해, 일상에서 무심코 지나쳤던 소리들의 새로운 가능성을 탐구한다.</div>
+    <div id="playlist-myeongseon-tooltip" class="playlist-tooltip" role="tooltip" hidden>지나치게 조용한 공간은 불편하다. 조금만 움직이거나 소리 내면 이목이 쏠리는 것 같아 부담스럽다. 예컨대 경직된 회의실 같은 곳들… 첫 녹음을 했던 날 나는 밥을 먹고 있었고, 엄마는 거실을 밀대질 하고 있었다. 쩝쩝대는 소리가 들릴까 걱정되었고 엄마가 나에게 말을 걸 것 같아 조마조마했다. 고작해야 내 핸드폰에 저장될 1분짜리 녹음이지만 그 순간 조용한 회의실에서 밥을 먹는 것 같았다. 녹음 버튼을 누르면 생기는 이 공간은 점점 익숙해져 나중엔 큰 소리가 들어가도 대수롭지 않게 넘길 수 있게 되었다. 점점 대범해졌던 30일 동안의 나의 변화를 담은 소리 모음이다. 아차 싶었던 소리들을 마음껏 담아냈다.</div>
+    <div id="playlist-juhee-tooltip" class="playlist-tooltip" role="tooltip" hidden>30일간의 불특정한 시간과 공간에서 1분간 녹음한 음성 파일만을 재료로 활용해 재구성한 작업이다. 음성을 단순히 이어 붙이는 방식에서 벗어나, 말의 길이와 리듬, 반복, 중첩을 활용해 하나의 비트로 만들었다. 음성이 자연스럽게 이어지는 구간과 짧은 샘플이 반복되는 구간을 교차시키고, 중간에 리듬을 변화시켜 단조롭지 않게 구성했다. 특히 사람의 목소리가 나오는 구간을 자체의 특징을 유지하면서도 비트를 더해 풍성하고 경쾌한 분위기를 표현하고자 했다. 외부 악기나 별도의 음원을 사용하지 않고 목소리만으로 리듬과 음악적 흐름을 만들어 냈다는 점이 특징이다.</div>
     <script src="data/audio-library.js"></script>
     <script src="script.js"></script>
     <script src="player.js"></script>
+    <script src="data/vendor/lamejs/lame.min.js"></script>
+    <script src="editor-audio.js"></script>
+    <script src="cloud-config.js"></script>
+    <script src="cloud-sounds.js"></script>
+    <script src="user-sounds.js"></script>
     <script src="generator.js"></script>
 </body>
 </html>

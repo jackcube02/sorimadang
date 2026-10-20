@@ -1,0 +1,4 @@
+# 회원가입 없이 공개 목록·등록·재생을 제공하는 전용 함수이다.
+# DB·Storage 직접 접근은 차단하고 함수 내부에서 검사한다.
+[functions.sori-sounds]
+verify_jwt = false

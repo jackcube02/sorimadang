@@ -308,6 +308,15 @@
                 button.addEventListener('click', () => selectTrack(index));
                 playlistList.append(button);
                 playlistButtons.push(button);
+                const tooltipNames = ['hojun', 'minuk', 'chanhyeok', 'myeongseon', 'juhee'];
+                const tooltipId = `playlist-${tooltipNames[index]}-tooltip`;
+                if (document.getElementById(tooltipId) && typeof setupTooltip === 'function') {
+                    button.id = `playlist-track-${index + 1}`;
+                    const name = button.querySelector('.playlist-name');
+                    name.id = `playlist-name-${index + 1}`;
+                    button.setAttribute('aria-describedby', tooltipId);
+                    setupTooltip(name.id, tooltipId, button.id);
+                }
             });
         }
 
@@ -329,7 +338,13 @@
             getState: () => ({ index: currentIndex, playing: !audio.paused, currentTime: audio.currentTime, duration: trackDuration() })
         };
 
-        selectTrack(0, true, true);
+        // 첫 영상 뒤에 음원 자동 재생을 시도한다. 화면보호기 종료 때는 재시작하지 않는다.
+        if (window.soriIntroFinished === false) {
+            selectTrack(0, false, true);
+            window.addEventListener('intro-finished', () => {
+                if (window.location.hash !== '#generator') void playCurrent(true);
+            }, {once: true});
+        } else selectTrack(0, true, true);
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startPlayer, { once: true });

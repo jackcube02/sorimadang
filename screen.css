@@ -1,15 +1,13 @@
-/* 첫 화면과 화면보호기가 함께 사용하는 전체 화면이다. */
+/* 첫 방문은 샘플 1, 3분 대기 화면은 샘플 1·2 중 무작위 영상이다. */
 #title-screen { display: none; }
 .has-title-screen #title-screen {
-    --screen-fade-in: 800ms;
-    --screen-fade-out: 1200ms;
+    --screen-fade-in: 500ms;
+    --screen-fade-out: 500ms;
     position: fixed;
     inset: 0;
     z-index: 10000;
     display: grid;
     place-items: center;
-    box-sizing: border-box;
-    padding: 4vw;
     background: #000;
     color: #fff;
     opacity: 0;
@@ -20,25 +18,21 @@
     transition: opacity var(--screen-fade-out) ease;
 }
 .has-title-screen #title-screen.is-visible {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    opacity: 1; visibility: visible; pointer-events: auto;
     transition-duration: var(--screen-fade-in);
 }
-.has-title-screen #title-screen.is-hiding {
-    visibility: visible;
-    pointer-events: auto;
-}
-#title-screen-text {
-    margin: 0;
-    font-family: 'JungGothic', sans-serif;
-    font-size: clamp(40px, min(22vw, 38dvh), 480px);
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.04em;
-    white-space: nowrap;
+.has-title-screen #title-screen.is-hiding { visibility: visible; pointer-events: auto; }
+#screen-video {
+    display: block;
+    width: 100%; height: 100%;
+    position: absolute; inset: 0;
+    object-fit: contain; /* 영상의 글자가 모바일에서도 잘리지 않게 한다. */
     opacity: 0;
     transition: opacity var(--screen-fade-in) ease;
+    pointer-events: none;
 }
-#title-screen.is-ready #title-screen-text { opacity: 1; }
+#title-screen.is-ready #screen-video { opacity: 1; }
 #title-screen:focus { outline: none; }
+.screen-buttons { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; padding: 16px; }
+.screen-buttons button { color: #fff; background: #000; border: var(--line-width) solid var(--line-color); font: inherit; padding: 12px 18px; cursor: pointer; }
+.screen-buttons [hidden] { display: none; }
