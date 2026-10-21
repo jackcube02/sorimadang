@@ -211,6 +211,30 @@ p{
     font-weight: 400;
 }
 
+/* CD 이미지: 첫 장은 전체 너비, 나머지는 2단 배치 */
+.cd-images {
+    --cd-crop-ratio: 4 / 3; /* 가로 : 세로. 3 / 2로 바꾸면 더 납작해진다. */
+    --cd-crop-position: 50%; /* 세로 중심: 0%=위, 50%=가운데, 100%=아래 */
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px; /* 이미지 사이 간격 */
+    align-items: start;
+}
+.cd-images img {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+}
+.cd-images .cd-cover { grid-column: 1 / -1; }
+/* 01~11만 그리드에서 위아래를 잘라 표시한다. 12·13과 확대 보기는 원본 비율이다. */
+.cd-images .cd-crop img {
+    aspect-ratio: var(--cd-crop-ratio);
+    object-fit: cover;
+    object-position: center var(--cd-crop-position);
+}
+
+
 @media (max-width: 600px) {
     #content-text {
         padding-right: 12px;
@@ -358,4 +382,52 @@ button, input, select {
     line-height: 1.65;
     scrollbar-width: thin;
     scrollbar-color: #666 #fff;
+}
+
+/* CD 확대 보기: 아래 네 값으로 크기·배경·페이드 속도를 조절한다. */
+#image-viewer {
+    --image-max-width: 90vw;      /* 이미지 최대 너비: 화면 너비의 90% */
+    --image-max-height: 90dvh;    /* 이미지 최대 높이: 화면 높이의 90% */
+    --image-backdrop: 0.72;      /* 배경 어둡기: 0=투명, 1=검정 */
+    --image-fade-time: 300ms;    /* 등장·퇴장 시간: 클수록 천천히 */
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    box-sizing: border-box;
+    background: rgb(0 0 0 / var(--image-backdrop));
+    opacity: 0;
+    transition: opacity var(--image-fade-time) ease;
+    overscroll-behavior: contain;
+}
+#image-viewer[hidden] { display: none; }
+#image-viewer.is-open { opacity: 1; }
+#image-viewer:focus { outline: none; }
+#image-large {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(var(--image-max-width), calc(100vw - 32px));
+    max-height: min(var(--image-max-height), calc(100dvh - 32px));
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity var(--image-fade-time) ease;
+}
+#image-viewer.is-ready #image-large { opacity: 1; }
+#image-close {
+    position: absolute; right: 16px; top: 16px;
+    display: grid; place-items: center;
+    width: 36px; height: 36px; padding: 7px;
+    border: var(--line-width) solid var(--line-color);
+    border-radius: 0; background: #000; color: #fff; cursor: pointer;
+}
+#image-close svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.cd-image-button { display: block; min-width: 0; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.cd-image-button:focus-visible, #image-close:focus-visible { outline: var(--line-width) solid var(--line-color); outline-offset: 4px; }
+html.image-is-open, body.image-is-open { overflow: hidden; }
+.image-is-open #content-main { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+    #image-viewer { --image-fade-time: 0ms; }
 }
